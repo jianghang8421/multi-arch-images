@@ -1,0 +1,21 @@
+#!/bin/bash
+set -e
+
+echo "1. install trash"
+go get -u github.com/rancher/trash
+
+echo "2. trash keep"
+trash -k
+
+echo "3. build all images"
+
+ALL_IMAGES=$(dirname ${BASH_SOURCE})/..
+
+for file in ${ALL_IMAGES}/*
+do
+	if [[ -d "$file" && "$(basename ${file})" != "scripts" && "$(basename ${file})" != "vendor" ]]
+		then
+		echo "run script in $(basename ${file})"
+		${ALL_IMAGES}/$(basename ${file})/*.sh
+	fi
+done
