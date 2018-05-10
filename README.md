@@ -8,6 +8,20 @@ To support running Rancher on multi-arch CPUs(ARM64/MIPS/...), this repo can kee
 
 ## How to build
 
+Make sure you're using go1.6 or later version.
+Run `make`.
+
+### Linux binary
+
+Run `make`.
+
+### Other binary
+
+Run `CROSS=1 make`
+
+### Docker Images
+
+To use a custom docker repository, Run `REPO=xxx make`
 
 ## How to add
 
