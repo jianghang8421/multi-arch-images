@@ -1,0 +1,37 @@
+nodes:
+    - address: 51.15.99.19
+      user: root
+      role:
+        - controlplane
+        - etcd
+        - worker
+      ssh_key_path: ~/scaleway_rsa
+ignore_docker_version: true
+system_images:
+    kubernetes: jianghang8421/hyperkube-arm64:v1.11.3-rancher1-arm64
+    etcd: jianghang8421/coreos-etcd:v3.2.18-arm64
+    alpine: jianghang8421/rke-tools-arm64:v0.1.15-arm64
+    nginx_proxy: jianghang8421/rke-tools-arm64:v0.1.15-arm64
+    cert_downloader: jianghang8421/rke-tools-arm64:v0.1.15-arm64
+    kubernetes_services_sidecar: jianghang8421/rke-tools-arm64:v0.1.15-arm64
+    kubedns: jianghang8421/k8s-dns-kube-dns-arm64:1.14.10
+    dnsmasq: jianghang8421/k8s-dns-dnsmasq-nanny-arm64:1.14.10
+    kubedns_sidecar: jianghang8421/k8s-dns-sidecar-arm64:1.14.10
+    kubedns_autoscaler: jianghang8421/cluster-proportional-autoscaler-arm64:1.0.0
+    pod_infra_container: jianghang8421/pause-arm64:3.1
+    metrics_server: jianghang8421/metrics-server-arm64:v0.2.1
+
+    # Flannel Networking Options
+    flannel: jianghang8421/coreos-flannel:v0.10.0-arm64
+    flannel_cni: jianghang8421/coreos-flannel-cni:v0.3.0-arm64
+
+    # Ingress Options 0.16.2 not support arm64  use 0.10.2 temp
+    # ingress: jianghang8421/nginx-ingress-controller:0.10.2-arm64
+    ingress: cnrancher/nginx-ingress-controller-arm64:0.10.2-rancher2    
+    ingress_backend: jianghang8421/nginx-ingress-controller-defaultbackend-arm64:1.4
+services:
+    etcd:
+        extra_env: 
+            - ETCD_UNSUPPORTED_ARCH=arm64
+network:
+    plugin: flannel
